@@ -52,15 +52,20 @@ def book(competition, club):
 
 @app.route("/purchasePlaces", methods=["POST"])
 def purchasePlaces():
-    competition = [c for c in competitions if c["name"] == request.form["competition"]][
-        0
-    ]
+    competition = [c for c in competitions if c["name"] == request.form["competition"]][0]
     club = [c for c in clubs if c["name"] == request.form["club"]][0]
     placesRequired = int(request.form["places"])
     availablePlaces = int(competition["numberOfPlaces"])
+    clubPoints = int(club["points"])
 
     if placesRequired <= 0:
         flash("Number of places must be positive.")
+        return render_template("booking.html", club=club, competition=competition)
+
+    if placesRequired > clubPoints:
+        flash(
+            f"Cannot book {placesRequired} places. You only have {clubPoints} points available."
+        )
         return render_template("booking.html", club=club, competition=competition)
 
     if placesRequired > availablePlaces:
@@ -70,6 +75,7 @@ def purchasePlaces():
         return render_template("booking.html", club=club, competition=competition)
 
     competition["numberOfPlaces"] = availablePlaces - placesRequired
+    club["points"] = clubPoints - placesRequired
     flash("Great-booking complete!")
     return render_template("welcome.html", club=club, competitions=competitions)
 
