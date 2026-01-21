@@ -28,7 +28,12 @@ def index():
 
 @app.route("/showSummary", methods=["POST"])
 def showSummary():
-    club = [club for club in clubs if club["email"] == request.form["email"]][0]
+    email = request.form["email"]
+    club_list = [club for club in clubs if club["email"] == email]
+    if not club_list:
+        flash("Sorry, that email wasn't found.")
+        return render_template("index.html")
+    club = club_list[0]
     return render_template("welcome.html", club=club, competitions=competitions)
 
 
@@ -63,3 +68,7 @@ def purchasePlaces():
 @app.route("/logout")
 def logout():
     return redirect(url_for("index"))
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
