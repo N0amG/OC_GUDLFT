@@ -23,6 +23,20 @@
         <input type="email" name="email" id="" />
         <button type="submit">Enter</button>
     </form>
+    
+    <h3>Club Points:</h3>
+    <table border="1" style="border-collapse: collapse; margin-top: 20px;">
+        <tr>
+            <th style="padding: 10px;">Club Name</th>
+            <th style="padding: 10px;">Points</th>
+        </tr>
+        {% for club in clubs %}
+        <tr>
+            <td style="padding: 10px;">{{ club.name }}</td>
+            <td style="padding: 10px;">{{ club.points }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 
 </html>
