@@ -35,7 +35,9 @@ def showSummary():
         flash("Sorry, that email wasn't found.")
         return render_template("index.html", clubs=clubs)
     club = club_list[0]
-    return render_template("welcome.html", club=club, competitions=competitions, clubs=clubs)
+    return render_template(
+        "welcome.html", club=club, competitions=competitions, clubs=clubs
+    )
 
 
 @app.route("/book/<competition>/<club>")
@@ -48,7 +50,9 @@ def book(competition, club):
         )
     else:
         flash("Something went wrong-please try again")
-        return render_template("welcome.html", club=club, competitions=competitions, clubs=clubs)
+        return render_template(
+            "welcome.html", club=club, competitions=competitions, clubs=clubs
+        )
 
 
 @app.route("/purchasePlaces", methods=["POST"])
@@ -65,8 +69,10 @@ def purchasePlaces():
     competition_date = datetime.strptime(competition["date"], "%Y-%m-%d %H:%M:%S")
     if competition_date < datetime.now():
         flash("You cannot book places for a past competition.")
-        return render_template("welcome.html", club=club, competitions=competitions, clubs=clubs)
-    
+        return render_template(
+            "welcome.html", club=club, competitions=competitions, clubs=clubs
+        )
+
         return render_template("welcome.html", club=club, competitions=competitions)
 
     if placesRequired > available_places:
@@ -84,7 +90,9 @@ def purchasePlaces():
     competition["numberOfPlaces"] = str(available_places - placesRequired)
     club["points"] = str(club_points - placesRequired)
     flash("Great-booking complete!")
-    return render_template("welcome.html", club=club, competitions=competitions, clubs=clubs)
+    return render_template(
+        "welcome.html", club=club, competitions=competitions, clubs=clubs
+    )
 
 
 # TODO: Add route for points display
