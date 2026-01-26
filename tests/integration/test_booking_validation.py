@@ -24,11 +24,12 @@ class TestBookingValidation:
             data={
                 "club": "Simply Lift",
                 "competition": "Winter Cup",
-                "places": "15",
+                "places": "13",
             },
             follow_redirects=True,
         )
         assert response.status_code == 200
+        print(response.data)
         assert b"cannot book more than 12" in response.data
 
     def test_booking_exceeds_club_points(self, client):
