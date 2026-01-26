@@ -2,6 +2,7 @@
 Functional tests using Selenium - End-to-end browser tests
 """
 
+import re
 import pytest
 import threading
 import time
@@ -43,7 +44,6 @@ class TestFunctionalSelenium:
 
     def test_complete_booking_flow(self, server, browser):
         """Test: User logs in, sees welcome, books places, points decrease"""
-        import re
 
         # 1. Go to homepage
         browser.get("http://127.0.0.1:5000/")
