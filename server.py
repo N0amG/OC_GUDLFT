@@ -73,8 +73,6 @@ def purchasePlaces():
             "welcome.html", club=club, competitions=competitions, clubs=clubs
         )
 
-        return render_template("welcome.html", club=club, competitions=competitions)
-
     if placesRequired > available_places:
         flash(f"Not enough places available! Only {available_places} places remaining.")
         return render_template("welcome.html", club=club, competitions=competitions)
