@@ -61,14 +61,12 @@ class TestBookingValidation:
 
     def test_valid_booking(self, client):
         """Test that valid booking succeeds"""
-        clubs = loadClubs()
-        competitions = loadCompetitions()
-
-        club = next(c for c in clubs if c["name"] == "Simply Lift")
-        competition = next(c for c in competitions if c["name"] == "Spring Festival")
-
-        assert int(club["points"]) >= 5
-        assert int(competition["numberOfPlaces"]) >= 5
+        response = client.post(
+            "/purchasePlaces",
+            data={"club": "Simply Lift", "competition": "Spring Festival", "places": "5"},
+            follow_redirects=True,
+        )
+        assert response.status_code == 200
 
     def test_booking_exactly_12_places(self, client):
         """Test that booking exactly 12 places is allowed"""
