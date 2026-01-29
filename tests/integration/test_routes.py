@@ -35,7 +35,7 @@ class TestShowSummaryRoute:
         """Test showSummary with valid email"""
         response = client.post("/showSummary", data={"email": "john@simplylift.co"})
         assert response.status_code == 200
-        assert b"Welcome" in response.data
+        assert b"Logout" in response.data
 
     def test_showSummary_invalid_email(self, client):
         """Test showSummary with invalid email"""

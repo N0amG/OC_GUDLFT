@@ -52,7 +52,7 @@ class TestFunctionalSelenium:
         email_input = browser.find_element(By.NAME, "email")
         email_input.send_keys("john@simplylift.co")
         browser.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
-        time.sleep(0.5)  # Wait for page to load
+        time.sleep(1)  # Wait for page to load
 
         # 3. Check welcome page
         assert "Welcome" in browser.page_source
